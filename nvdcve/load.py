@@ -10,8 +10,8 @@ cwe: [uid] @reverse .
 reference: [uid] .
 
 impact: uid .
-publishedDate: dateTime .
-lastModifiedDate: dateTime .
+published_date: dateTime .
+last_modified_date: dateTime .
 
 type Cve {
     name 
@@ -19,8 +19,8 @@ type Cve {
     reference
     description
     impact
-    publishedDate
-    lastModifiedDate
+    published_date
+    last_modified_date
 }
 
 url: string .
@@ -35,21 +35,21 @@ type Reference {
 }
 
 severity: string .
-exploitabilityScore: float .
-impactScore: float .
-obtainAllPrivilege: bool .
-obtainUserPrivilege: bool .
-obtainOtherPrivilege: bool .
-userInteractionRequired: bool .
+exploitability_score: float .
+impact_score: float .
+obtain_all_privilege: bool .
+obtain_user_privilege: bool .
+obtain_other_privilege: bool .
+user_interaction_required: bool .
 
 type Impact {
     severity
-    exploitabilityScore
-    impactScore
-    obtainAllPrivilege
-    obtainUserPrivilege
-    obtainOtherPrivilege
-    userInteractionRequired
+    exploitability_score
+    impact_score
+    obtain_all_privilege
+    obtain_user_privilege
+    obtain_other_privilege
+    user_interaction_required
 }
 '''
     op = pydgraph.Operation(
@@ -80,7 +80,7 @@ def testJsonLoad(client):
             "obtainUserPrivilege":False,
             "obtainOtherPrivilege":False,
             "userInteractionRequired":False,
-            "dgraph.type":"Impacet"
+            "dgraph.type":"Impact"
         },
         "publishedDate": "1999-12-30T05:00Z",
         "lastModifiedDate": "2010-12-16T05:00Z",

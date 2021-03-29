@@ -46,8 +46,8 @@ def process(fileName, result):
             "reference": [],
             "description": [],
             "impact": {},
-            "publishedDate": rfc3339.rfc3339(parse(cveItem["publishedDate"])),
-            "lastModifiedDate": rfc3339.rfc3339(parse(cveItem["lastModifiedDate"])),
+            "published_date": rfc3339.rfc3339(parse(cveItem["publishedDate"])),
+            "last_modified_date": rfc3339.rfc3339(parse(cveItem["lastModifiedDate"])),
             "dgraph.type": "Cve"
         }
         cve = cveItem["cve"]
@@ -74,18 +74,18 @@ def process(fileName, result):
         # impact
         if "baseMetricV2" in cveItem["impact"].keys():
             baseMetricV2 = cveItem["impact"]["baseMetricV2"]
-            if "userInteractionRequired" in baseMetricV2.keys():
-                tmpResult["impact"]["userInteractionRequired"] = baseMetricV2["userInteractionRequired"]
             tmpResult["impact"] = {
                     "severity": baseMetricV2["severity"],
-                    "exploitabilityScore": baseMetricV2["exploitabilityScore"],
-                    "impactScore": baseMetricV2["impactScore"],
-                    "obtainAllPrivilege": baseMetricV2["obtainAllPrivilege"],
-                    "obtainUserPrivilege": baseMetricV2["obtainUserPrivilege"],
-                    "obtainOtherPrivilege": baseMetricV2["obtainOtherPrivilege"],
+                    "exploitability_score": baseMetricV2["exploitabilityScore"],
+                    "impact_score": baseMetricV2["impactScore"],
+                    "obtain_all_privilege": baseMetricV2["obtainAllPrivilege"],
+                    "obtain_user_privilege": baseMetricV2["obtainUserPrivilege"],
+                    "obtain_other_privilege": baseMetricV2["obtainOtherPrivilege"],
                     # "userInteractionRequired": baseMetricV2["userInteractionRequired"],
                     "dgraph.type": "Impact"
                 }
+            if "userInteractionRequired" in baseMetricV2.keys():
+                tmpResult["impact"]["user_interaction_required"] = baseMetricV2["userInteractionRequired"]
         result.append(tmpResult)
         # print(json.dumps(tmpResult))
     return result
