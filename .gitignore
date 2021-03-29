@@ -1,0 +1,11 @@
+.vscode/
+att&ck/att&ck/cti-ATT-CK-v8.2
+att&ck/att&ck/cti-ATT-CK-v8.2.zip
+cwe/cwe/*.csv
+cwe/cwe/*.zip
+cwe/result.json
+nvdcve/cve/*.json
+nvdcve/cve/*.zip
+nvdcve/result.json
+suricata-rules/rules/*
+suricata-rules/result.json

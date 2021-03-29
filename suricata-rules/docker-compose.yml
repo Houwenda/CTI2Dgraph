@@ -1,0 +1,7 @@
+version: "3"
+services:
+    suricata:
+        image: jasonish/suricata:4.1
+        volumes:
+            - "./rules:/var/lib/suricata/rules/"
+        command: "suricata-update --no-reload --no-merge"
