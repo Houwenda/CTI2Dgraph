@@ -13,6 +13,7 @@ likelihood: string .
 prerequisites: [string] .
 resources_required: [string] .
 severity: string .
+attack_technique: [uid] @reverse .
 type Capec {
     name
     created_date
@@ -24,6 +25,7 @@ type Capec {
     prerequisites
     resources_required
     severity
+    attack_technique
 }
 '''
     op = pydgraph.Operation(
@@ -67,7 +69,7 @@ def load(client, src):
                 pass
             else:
                 tmpExternalReference = {
-                    "name": external_reference["description"],
+                    "description": [external_reference["description"]],
                     "refsource": external_reference["source_name"],
                     "dgraph.type": "Reference"
                 }
@@ -146,11 +148,10 @@ def link2cwe(client, src):
                 txn.mutate(set_nquads='<' + cweUid + '> <capec> <' + capecUid + '> .')
         txn.commit()
 
-    print("cwe to capec relation created")
+    print("cwe to capec relations created")
 
 if __name__ == "__main__":
     fs = FileSystemSource('./att&ck/cti-ATT-CK-v8.2/capec')
-    # get_attack_pattern_by_capec_id(fs, '66')
     client_stub = pydgraph.DgraphClientStub('localhost:9080')
     client = pydgraph.DgraphClient(client_stub)
 

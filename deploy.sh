@@ -15,6 +15,8 @@ cd ../suricata-rules
 # python3 process.py
 python3 load.py
 
-# load capec data
+# load capec & attack technique data
 cd ../att\&ck
 python3 capec.py
+python3 enterprise-attack.py
+python3 ics-attack.py

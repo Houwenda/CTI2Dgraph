@@ -74,7 +74,7 @@ def loadFromJsonFile(client, fileName):
     finally:
         txn.discard()
     print()
-    print("json data without relation loaded into dgraph")
+    print("json data without relations loaded into dgraph")
 
     # create relations
     query = '''query all($name: string) {
@@ -121,7 +121,7 @@ def loadFromJsonFile(client, fileName):
                 # txn.mutate(set_nquads='<'+currentUid + '> <capec> <' + uid + '> .')
                 # print("capec")
         txn.commit()
-    print("relations created")
+    print("cwe to cwe relations created")
     
 if __name__ == '__main__':
     client_stub = pydgraph.DgraphClientStub('localhost:9080')

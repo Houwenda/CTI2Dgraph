@@ -84,7 +84,7 @@ def loadFromJsonFile(client, fileName):
                 uid = res[0]["uid"]
                 txn.mutate(set_nquads='<' + currentUid + '> <cve> <' + uid + '> .')
         txn.commit()
-    print("relations created")
+    print("suricata rule to cve relations created")
 
 if __name__ == '__main__':
     client_stub = pydgraph.DgraphClientStub('localhost:9080')

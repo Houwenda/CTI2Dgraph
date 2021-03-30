@@ -30,6 +30,7 @@ tag: [string] .
 type Reference {
     url
     name
+    description
     refsource
     tag
 }
@@ -171,7 +172,7 @@ def loadFromJsonFile(client, fileName):
     finally:
         txn.discard()
     print()
-    print("json data without relation loaded into dgraph")
+    print("cve data without relations loaded into dgraph")
 
     # create relations
     query = '''query all($name: string) {
@@ -199,7 +200,7 @@ def loadFromJsonFile(client, fileName):
                 uid = res[0]["uid"]
                 txn.mutate(set_nquads='<'+currentUid + '> <cwe> <' + uid + '> .')
         txn.commit()
-    print("relations created")
+    print("cve to cwe relations created")
 
 if __name__ == '__main__':
     client_stub = pydgraph.DgraphClientStub('localhost:9080')
