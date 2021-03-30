@@ -135,6 +135,7 @@ def testJsonQuery(client):
     print(json.loads(res.json))
 
 def loadFromJsonFile(client, fileName):
+    print("Reading cve data from file")
     with open(fileName) as f:
         dataWithoutRelation = json.load(f) # json validation
         

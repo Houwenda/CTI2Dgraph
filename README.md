@@ -1,7 +1,8 @@
 # CTI2Dgraph
 Load Cyber Threat Intelligence from NVD-CVE, MITRE CWE, MITRE CAPEC, MITRE ATT&CK into Dgraph database, along with Suricata rules.
 
-Deploy Dgraph using docker-compose:
+## Dgraph Setup
+Deploy Dgraph using docker-compose.
 ```yaml
 version: "3"
 services:
@@ -31,9 +32,28 @@ services:
         command: "dgraph-ratel"
 ```
 
-
-Usage:
+## Downloading Raw Data
+Download data feeds using download.sh in subdirectories.
+```shellscript
+cd att\&ck/att\&ck
+./download.sh
+cd ../../cwe/cwe
+./download.sh
+cd ../../nvdcve/cve
+./download.sh
+cd ../../
 ```
+Download Suricata rules using docker-compose.
+```shellscript
+cd  suricata-rules
+sudo docker-compose up
+sudo docker-compose down
+cd ../
+```
+
+## Loading Data Into Dgraph
+Usage:
+```shellscript
 pip3 install -r requirements.txt
 ./deploy.sh
 ```
