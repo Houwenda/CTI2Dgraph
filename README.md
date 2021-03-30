@@ -1,5 +1,7 @@
 # CTI2Dgraph
-Load Cyber Threat Intelligence from NVD-CVE, MITRE CWE, MITRE CAPEC, MITRE ATT&CK into Dgraph database, along with Suricata rules.
+Load Cyber Threat Intelligence from NVD-CVE, MITRE CWE, MITRE CAPEC, MITRE ATT&CK into Dgraph database, together with Suricata rules.
+
+![image](https://github.com/Houwenda/CTI2Dgraph/raw/master/example.png)
 
 ## Dgraph Setup
 Deploy Dgraph using docker-compose.
