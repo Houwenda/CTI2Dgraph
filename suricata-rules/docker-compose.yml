@@ -4,4 +4,6 @@ services:
         image: jasonish/suricata:4.1
         volumes:
             - "./rules:/var/lib/suricata/rules/"
-        command: "suricata-update --no-reload --no-merge"
+            - "./update.sh:/update.sh"
+        working_dir: "/"
+        command: "./update.sh"

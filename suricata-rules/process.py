@@ -9,7 +9,8 @@ cveRegex3 = re.compile(r"cve-\d{4}-\d+") # cve-2008-2992
 cveRegex4 = re.compile(r"cve,CAN-\d{4}-\d+[^;]") # cve,CAN-2001-0540
 cveRegex5 = re.compile(r"cve_\d{4}_\d+") # cve_2018_12636
 
-sidRegex = re.compile(r"sid:\d+[^;]")
+sidRegex0 = re.compile(r"sid:\d+[^;]")
+sidRegex1 = re.compile(r"sid: \d+[^;]")
 
 def getCveId0(line):
     m = cveRegex0.search(line)
@@ -75,8 +76,12 @@ def getCveId5(line):
         return ""
 
 def getSigId(line):
-    m = sidRegex.search(line)
-    sigId = line[m.start()+4:m.end()]
+    m = sidRegex0.search(line)
+    if m != None:
+        sigId = line[m.start()+4:m.end()]
+        return sigId
+    m = sidRegex1.search(line)
+    sigId = line[m.start()+5:m.end()]
     return sigId
 
 def process(ruleFile, result):
@@ -180,16 +185,18 @@ def dump2jsonFile(path, targetFile):
 if __name__ == '__main__':
     # rulesCountDir("./rules")
     # processDir("./rules")
-    dump2jsonFile("./rules", "./result.json")
+    dump2jsonFile("./rules", "./result.json") # 5570
 
     # print(process("./rules/emerging-attack_response.rules",[]))
 
 
 # cat *.rules | grep cve | wc -l
-# 5236
+# 5352
 
 # cat *.rules | grep CVE | wc -l
-# 4370
+# 4467
 
 # cat *.rules | grep cve | grep CVE | wc -l
-# 4115
+# 4212
+
+# 11 rules don't have the corresponding cve in nvd-cve dataset.
