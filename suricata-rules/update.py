@@ -10,9 +10,8 @@ def removeDuplicate(client, rawData):
     }
 '''
     result = []
-
+    txn = client.txn()
     for suricataRule in rawData:
-        txn = client.txn()
         res = txn.query(querySuricataRule, variables={'$sid':suricataRule["sid"]})
         if len(json.loads(res.json)["q"]) == 0: # not exist
             result.append(suricataRule)
@@ -94,8 +93,50 @@ def update(client, fileName):
         txn.commit()
     print("suricata rule to cve relations created")
 
+def updateCveLink(client, fileName):
+    with open(fileName) as f:
+        data = json.load(f) # json validation
+    # create relations
+    querySuricataRule = '''query all($sid: string) {
+        q(func: eq(sid, $sid)) {
+            uid
+            sid
+            cve {
+                name
+            }
+        }
+    }
+'''
+    queryCve = '''query all($name: string) {
+        q(func: eq(name, $name)) {
+            uid
+            name
+        }
+    }
+'''
+    for suricataRule in data:
+        txn = client.txn()
+        res = txn.query(querySuricataRule, variables={'$sid':suricataRule["sid"]})
+            
+        if "cve" not in json.loads(res.json)["q"][0]:
+            print(res.json)
+            currentUid = json.loads(res.json)["q"][0]["uid"]
+            if len(suricataRule["cve"]) > 0:
+                for name in suricataRule["cve"]:
+                    res = txn.query(queryCve, variables={'$name':name})
+                    res = json.loads(res.json)["q"]
+                    if len(res) == 0:
+                        print("cve not found:", name)
+                        continue
+                    uid = res[0]["uid"]
+                    txn.mutate(set_nquads='<' + currentUid + '> <cve> <' + uid + '> .')
+
+        txn.commit()
+        # break
+
 if __name__ == '__main__':
     client_stub = pydgraph.DgraphClientStub('localhost:9080')
     client = pydgraph.DgraphClient(client_stub)
 
     update(client, "./result.json")
+    updateCveLink(client, "./result.json")

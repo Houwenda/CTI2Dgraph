@@ -19,4 +19,5 @@ wget https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2018.json.zip
 wget https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2019.json.zip
 wget https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2020.json.zip
 wget https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-2021.json.zip
+wget https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-recent.json.zip
 unzip \*.zip
